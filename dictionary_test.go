@@ -26,4 +26,22 @@ func TestDictionarySanity(t *testing.T) {
 			}
 		}
 	})
+
+	t.Run("ShouldNotHaveDuplicateAcrossDictionaries", func(t *testing.T) {
+		allDicts := []string{}
+
+		// Append all dictionaries into one
+		for _, v := range dicts {
+			allDicts = append(allDicts, v...)
+		}
+
+		// Check if there is any duplicate in all appended dictionaries
+		isExist := make(map[string]bool)
+		for _, vv := range allDicts {
+			if isExist[vv] {
+				t.Errorf("Duplicate entry across dictionaries: %s", vv)
+			}
+			isExist[vv] = true
+		}
+	})
 }
